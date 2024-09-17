@@ -19,6 +19,7 @@
         android:layout_marginBottom="387dp"
         android:background="#F00505"
         android:backgroundTint="#DE7C7C"
+        android:text="CREATE SURVEY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +38,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="SUREVY REPORT" />
 
     <TextView
         android:id="@+id/textView"
