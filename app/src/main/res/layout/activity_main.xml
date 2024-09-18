@@ -2,29 +2,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/background_color"
+    android:gravity="center">
 
     <Button
         android:id="@+id/createSurveyButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create Survey" />
+        android:text="Create Survey"
+        android:textColor="@android:color/white"
+        android:background="@color/button_color"
+        android:textSize="18sp"
+        android:layout_marginBottom="12dp"
+        android:padding="12dp" />
 
     <Button
         android:id="@+id/answerSurveyButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Answer Survey" />
+        android:text="Answer Survey"
+        android:textColor="@android:color/white"
+        android:background="@color/button_color"
+        android:textSize="18sp"
+        android:layout_marginBottom="12dp"
+        android:padding="12dp" />
 
     <Button
         android:id="@+id/reportButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Survey Report" />
+        android:text="Survey Report"
+        android:textColor="@android:color/white"
+        android:background="@color/button_color"
+        android:textSize="18sp"
+        android:layout_marginBottom="12dp"
+        android:padding="12dp" />
 
     <Button
         android:id="@+id/deleteDataButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete All Data" />
+        android:text="Delete All Data"
+        android:textColor="@android:color/white"
+        android:background="@color/button_color"
+        android:textSize="18sp"
+        android:padding="12dp" />
+
 </LinearLayout>

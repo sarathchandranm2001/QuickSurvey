@@ -3,36 +3,62 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="16dp"
+    android:background="@color/background_color"
+    android:layout_marginBottom="16dp">
 
     <EditText
         android:id="@+id/questionInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Question" />
+        android:hint="Enter Question"
+        android:padding="12dp"
+        android:background="@drawable/edit_text_bg"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
 
     <EditText
         android:id="@+id/option1Input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Option 1" />
+        android:hint="Option 1"
+        android:padding="12dp"
+        android:background="@drawable/edit_text_bg"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
 
     <EditText
         android:id="@+id/option2Input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Option 2" />
+        android:hint="Option 2"
+        android:padding="12dp"
+        android:background="@drawable/edit_text_bg"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
 
     <EditText
         android:id="@+id/option3Input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Option 3" />
+        android:hint="Option 3"
+        android:padding="12dp"
+        android:background="@drawable/edit_text_bg"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp" />
 
     <Button
         android:id="@+id/deleteQuestionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Delete Question"
-        android:onClick="removeQuestion" />
+        android:textColor="@android:color/white"
+        android:background="@color/button_color"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:layout_gravity="center_horizontal"/>
 </LinearLayout>

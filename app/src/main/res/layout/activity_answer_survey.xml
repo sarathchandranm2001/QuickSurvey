@@ -1,21 +1,36 @@
 <!-- activity_answer_survey.xml -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/background_color">
 
-    <LinearLayout
-        android:id="@+id/questionsLayout"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/submitAnswerButton"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/questionsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Dynamically added questions will appear here -->
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submitAnswerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- Dynamically added questions will appear here -->
-
-        <Button
-            android:id="@+id/submitAnswerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit Answers" />
-    </LinearLayout>
-</ScrollView>
+        android:text="Submit Answers"
+        android:textColor="@android:color/white"
+        android:background="@color/button_color"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="24dp"/>
+</RelativeLayout>
