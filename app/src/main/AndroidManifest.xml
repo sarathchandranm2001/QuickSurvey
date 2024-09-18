@@ -12,8 +12,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuickSurvay"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".question_item"
+            android:exported="false" />
+        <activity
+            android:name=".ReportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AnswerSurveyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateSurveyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SurveyDatabaseHelper"
+            android:exported="false" />
+        <activity
+            android:name=".activity_webview"
+            android:exported="false" />
+        <activity
+            android:name=".PreviewSurveyActivity"
+            android:exported="false" />
         <activity
             android:name=".CreateSurvey"
             android:exported="false" />

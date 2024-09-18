@@ -1,15 +1,24 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/surveyScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:padding="16dp">
 
     <LinearLayout
-        android:id="@+id/questionsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/surveyNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Survey Name" />
+
+        <LinearLayout
+            android:id="@+id/questionsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
         <Button
             android:id="@+id/addQuestionButton"
@@ -18,13 +27,7 @@
             android:text="Add Question" />
 
         <Button
-            android:id="@+id/shareSurveyButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Share Survey" />
-
-        <Button
-            android:id="@+id/submitSurvey"
+            android:id="@+id/submitSurveyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit Survey" />

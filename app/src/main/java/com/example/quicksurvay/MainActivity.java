@@ -6,39 +6,45 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+
+    private SurveyDatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // Handling window insets for edge-to-edge layout
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        dbHelper = new SurveyDatabaseHelper(this);
+
+        Button createSurveyButton = findViewById(R.id.createSurveyButton);
+        Button answerSurveyButton = findViewById(R.id.answerSurveyButton);
+        Button reportButton = findViewById(R.id.reportButton);
+        Button deleteDataButton = findViewById(R.id.deleteDataButton);
+
+        createSurveyButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CreateSurveyActivity.class);
+            startActivity(intent);
         });
 
-        // Find the "Create Survey" button
-        Button createSurveyButton = findViewById(R.id.button);
+        answerSurveyButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AnswerSurveyActivity.class);
+            startActivity(intent);
+        });
 
-        // Set up the button to lead to CreateSurveyActivity
-        createSurveyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Intent to move from MainActivity to CreateSurveyActivity
-                Intent intent = new Intent(MainActivity.this, CreateSurvey.class);
-                startActivity(intent);
-            }
+        reportButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ReportActivity.class);
+            startActivity(intent);
+        });
+
+        // Delete all data from the database
+        deleteDataButton.setOnClickListener(v -> {
+            dbHelper.deleteAllData();
+            Toast.makeText(MainActivity.this, "All data deleted", Toast.LENGTH_SHORT).show();
         });
     }
 }
