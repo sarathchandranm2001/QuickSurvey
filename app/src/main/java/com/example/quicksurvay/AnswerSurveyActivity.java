@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +18,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AnswerSurveyActivity extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class AnswerSurveyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_answer_survey);
 
         dbHelper = new SurveyDatabaseHelper(this);
-        questionsLayout = findViewById(R.id.questionsLayout); // A LinearLayout in ScrollView to hold the questions
+        questionsLayout = findViewById(R.id.questionsLayout);
 
         db = dbHelper.getReadableDatabase();
 
@@ -45,7 +45,7 @@ public class AnswerSurveyActivity extends AppCompatActivity {
             Toast.makeText(this, "No questions found", Toast.LENGTH_SHORT).show();
         }
 
-        // Submit the answers when button is clicked
+        // Submit the answers when the button is clicked
         Button submitAnswerButton = findViewById(R.id.submitAnswerButton);
         submitAnswerButton.setOnClickListener(v -> submitAllAnswers());
 
@@ -59,18 +59,33 @@ public class AnswerSurveyActivity extends AppCompatActivity {
             String questionText = cursor.getString(cursor.getColumnIndex("question_text"));
             int questionId = cursor.getInt(cursor.getColumnIndex("id"));
 
-            // Dynamically create TextView for the question
+            // Create TextView for the question
             TextView questionTextView = new TextView(this);
             questionTextView.setText(questionText);
             questionsLayout.addView(questionTextView);
 
-            // Dynamically create EditText for the answer
-            EditText answerInput = new EditText(this);
-            questionsLayout.addView(answerInput);
+            // Check if options are available for the question
+            Cursor optionsCursor = db.rawQuery("SELECT * FROM options WHERE question_id = ?", new String[]{String.valueOf(questionId)});
+            if (optionsCursor.moveToFirst()) {
+                // Create a RadioGroup for the options
+                RadioGroup radioGroup = new RadioGroup(this);
+                do {
+                    String optionText = optionsCursor.getString(optionsCursor.getColumnIndex("option_text"));
+                    RadioButton radioButton = new RadioButton(this);
+                    radioButton.setText(optionText);
+                    radioGroup.addView(radioButton);
+                } while (optionsCursor.moveToNext());
 
-            // Store question ID and answer input field in the list
-            questionAnswerPairs.add(new QuestionAnswerPair(questionId, answerInput));
+                questionsLayout.addView(radioGroup);
+                questionAnswerPairs.add(new QuestionAnswerPair(questionId, radioGroup));
 
+            } else {
+                // Create EditText for the answer if no options are available
+                EditText answerInput = new EditText(this);
+                questionsLayout.addView(answerInput);
+                questionAnswerPairs.add(new QuestionAnswerPair(questionId, answerInput));
+            }
+            optionsCursor.close();
             cursor.moveToNext();
         }
     }
@@ -80,15 +95,26 @@ public class AnswerSurveyActivity extends AppCompatActivity {
         boolean allAnswered = true;
 
         for (QuestionAnswerPair pair : questionAnswerPairs) {
-            String answer = pair.answerInput.getText().toString();
-            if (answer.isEmpty()) {
-                allAnswered = false;
-                break;
-            } else {
-                ContentValues values = new ContentValues();
-                values.put("question_id", pair.questionId);
-                values.put("response_text", answer);
-                db.insert("responses", null, values);
+            if (pair.answerInput instanceof RadioGroup) {
+                RadioGroup radioGroup = (RadioGroup) pair.answerInput;
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                if (selectedId == -1) {
+                    allAnswered = false;
+                    break;
+                } else {
+                    RadioButton selectedRadioButton = findViewById(selectedId);
+                    String answer = selectedRadioButton.getText().toString();
+                    saveAnswer(pair.questionId, answer);
+                }
+            } else if (pair.answerInput instanceof EditText) {
+                EditText answerInput = (EditText) pair.answerInput;
+                String answer = answerInput.getText().toString();
+                if (answer.isEmpty()) {
+                    allAnswered = false;
+                    break;
+                } else {
+                    saveAnswer(pair.questionId, answer);
+                }
             }
         }
 
@@ -99,16 +125,22 @@ public class AnswerSurveyActivity extends AppCompatActivity {
         }
     }
 
-    // Class to hold question ID and its associated EditText for the answer
+    // Function to save the answer in the database
+    private void saveAnswer(int questionId, String answer) {
+        ContentValues values = new ContentValues();
+        values.put("question_id", questionId);
+        values.put("response_text", answer);
+        db.insert("responses", null, values);
+    }
+
+    // Class to hold question ID and its associated input field (RadioGroup or EditText)
     private static class QuestionAnswerPair {
         int questionId;
-        EditText answerInput;
+        Object answerInput;  // Can be RadioGroup or EditText
 
-        public QuestionAnswerPair(int questionId, EditText answerInput) {
+        public QuestionAnswerPair(int questionId, Object answerInput) {
             this.questionId = questionId;
             this.answerInput = answerInput;
         }
     }
 }
-
-

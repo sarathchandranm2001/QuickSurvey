@@ -1,5 +1,5 @@
-<!-- activity_answer_survey.xml -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
@@ -9,28 +9,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/submitAnswerButton"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/questionsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:divider="@drawable/divider"
+            android:dividerPadding="8dp"
+            android:showDividers="middle">
 
             <!-- Dynamically added questions will appear here -->
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/submitAnswerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Submit Answers"
         android:textColor="@android:color/white"
-        android:background="@color/button_color"
+        android:backgroundTint="@color/button_color"
         android:textSize="18sp"
-        android:padding="12dp"
+        android:padding="16dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:cornerRadius="8dp"
+        android:elevation="4dp"/>
 </RelativeLayout>
