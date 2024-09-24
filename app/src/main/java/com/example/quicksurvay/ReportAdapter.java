@@ -1,5 +1,6 @@
 package com.example.quicksurvay;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportViewHolder> {
 
-    private List<ReportItem> reportItems;
+    private final List<ReportItem> reportItems;
 
     public ReportAdapter(List<ReportItem> reportItems) {
         this.reportItems = reportItems;
@@ -26,6 +27,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
         return new ReportViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ReportViewHolder holder, int position) {
         ReportItem reportItem = reportItems.get(position);
