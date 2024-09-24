@@ -1,14 +1,11 @@
 package com.example.quicksurvay;
-
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
 public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportViewHolder> {
@@ -31,8 +28,9 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
     @Override
     public void onBindViewHolder(@NonNull ReportViewHolder holder, int position) {
         ReportItem reportItem = reportItems.get(position);
-        holder.questionIdTextView.setText("Question ID: " + reportItem.getQuestionId());
-        holder.responseCountTextView.setText("Responses: " + reportItem.getResponseCount());
+        holder.surveyNameTextView.setText("Survey: " + reportItem.getSurveyName());
+        holder.questionTextView.setText("Question: " + reportItem.getQuestionText());
+        holder.responseTextView.setText("Answer: " + reportItem.getResponseText());
     }
 
     @Override
@@ -40,15 +38,18 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
         return reportItems.size();
     }
 
+    // Inner ViewHolder class
     public static class ReportViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView questionIdTextView;
-        public TextView responseCountTextView;
+        public TextView surveyNameTextView;
+        public TextView questionTextView;
+        public TextView responseTextView;
 
         public ReportViewHolder(@NonNull View itemView) {
             super(itemView);
-            questionIdTextView = itemView.findViewById(R.id.questionIdTextView);
-            responseCountTextView = itemView.findViewById(R.id.responseCountTextView);
+            surveyNameTextView = itemView.findViewById(R.id.surveyNameTextView);
+            questionTextView = itemView.findViewById(R.id.questionTextView);
+            responseTextView = itemView.findViewById(R.id.responseTextView);
         }
     }
 }

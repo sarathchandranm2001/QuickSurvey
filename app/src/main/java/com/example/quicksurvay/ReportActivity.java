@@ -39,16 +39,23 @@ public class ReportActivity extends AppCompatActivity {
         List<ReportItem> reportItems = new ArrayList<>();
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT question_id, COUNT(*) as response_count FROM responses GROUP BY question_id", null);
+        String query = "SELECT s.name AS survey_name, q.question_text, r.response_text " +
+                "FROM responses r " +
+                "JOIN questions q ON r.question_id = q.id " +
+                "JOIN surveys s ON q.survey_id = s.id";
+
+        Cursor cursor = db.rawQuery(query, null);
 
         while (cursor.moveToNext()) {
-            @SuppressLint("Range") int questionId = cursor.getInt(cursor.getColumnIndex("question_id"));
-            @SuppressLint("Range") int responseCount = cursor.getInt(cursor.getColumnIndex("response_count"));
+            @SuppressLint("Range") String surveyName = cursor.getString(cursor.getColumnIndex("survey_name"));
+            @SuppressLint("Range") String questionText = cursor.getString(cursor.getColumnIndex("question_text"));
+            @SuppressLint("Range") String responseText = cursor.getString(cursor.getColumnIndex("response_text"));
 
-            reportItems.add(new ReportItem(questionId, responseCount));
+            reportItems.add(new ReportItem(surveyName, questionText, responseText));
         }
         cursor.close();
 
         return reportItems;
     }
 }
+

@@ -1,19 +1,25 @@
 package com.example.quicksurvay;
 
 public class ReportItem {
-    private int questionId;
-    private int responseCount;
+    private String surveyName;
+    private String questionText;
+    private String responseText;
 
-    public ReportItem(int questionId, int responseCount) {
-        this.questionId = questionId;
-        this.responseCount = responseCount;
+    public ReportItem(String surveyName, String questionText, String responseText) {
+        this.surveyName = surveyName;
+        this.questionText = questionText;
+        this.responseText = responseText;
     }
 
-    public int getQuestionId() {
-        return questionId;
+    public String getSurveyName() {
+        return surveyName;
     }
 
-    public int getResponseCount() {
-        return responseCount;
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public String getResponseText() {
+        return responseText;
     }
 }
